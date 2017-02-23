@@ -15,3 +15,24 @@ Route::get('/', function()
 {
 	return View::make('home');
 });
+Route::get('/productos',function(){
+	return View::make('productos');
+});
+
+Route::get('carrito',function(){
+	return View::make('carrito');
+});
+Route::post("/producto-get","productoController@get");
+Route::post("/carrito-add",'productoController@add');
+Route::post("/carrito-get-cantidad","productoController@getCantidad");
+Route::post("/carrito-more-one","productoController@more");
+Route::post("/carrito-quit","productoController@quit");
+Route::get('/logout','loginController@logout');
+
+Route::group(["before"=>"guest"],function(){
+	Route::match(["POST","GET"],'/login','loginController@login');
+});
+
+Route::group(["before"=>"auth"],function(){
+	Route::match(["POST","GET"],"/categorias-admin",'categoriaController@show');
+});

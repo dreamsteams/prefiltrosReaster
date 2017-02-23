@@ -64,7 +64,7 @@ class categoriaController extends BaseController{
 	public function show(){
 		if(!Request::ajax()){	
 			if(Request::method()=="GET"){
-				return View::make('categorias');
+				return View::make('admin-categorias');
 			}
 		}
 	}

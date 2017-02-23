@@ -46,7 +46,7 @@ class loginController extends BaseController{
     }
     private function logear($credenciales){
     	if(Auth::attempt($credenciales)){
-    		return array("message"=>"success");
-    	}else return array("message"=>"warning");
+    		return Response::json(array("status" => 200, 'statusMessage' => "success",'message'=>'sesion iniciada correctamente.'));
+    	}else return Response::json(array("status"=>'PR-106',"statusMessage"=>"warning","message"=>'Credenciales incorrectas'));
     }
 }

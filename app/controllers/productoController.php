@@ -87,7 +87,7 @@ class productoController extends BaseController{
 	}
 	public function get(){
 		if(Request::ajax()){
-			return producto::where("active","1")->get();
+			return producto::getAll();
 		}
 	}
 	public function remove(){
@@ -152,6 +152,7 @@ class productoController extends BaseController{
 		];
 		$validacion = Validator::make(Input::all(),$rules,$messages);
 		if($validacion->fails()){
+			return Response::json(array("status" => "PR-401", 'statusMessage' => "data format wrong", "data" =>$validacion->messages()));
 			return $validacion->messages();
 		}else{
 			$producto = producto::find(Input::get("id"));
@@ -170,6 +171,7 @@ class productoController extends BaseController{
 				}				
 			}
 		}
+		return Response::json(array("status" => 200, 'statusMessage' => "success", "data" =>["qty"=>$this->getCantidad(),"product"=>$producto]));
 		return array(0=>$producto);
 
 	}
